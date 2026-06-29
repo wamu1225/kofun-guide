@@ -1,0 +1,57 @@
+:root {
+  /* 弁柄（赤茶のテラコッタ）× 古墳の緑 × 砂色 */
+  --terra: #9b5440;
+  --terra-deep: #6e3a2c;
+  --terra-soft: #b97a64;
+  --green: #4f7a5e;
+  --green-soft: #6f9a7e;
+  --gold: #a8842c;
+  --paper: #f4efe6;
+  --paper-card: #fffdf8;
+  --ink: #2f2a26;
+  --ink-soft: #5f574f;
+  --line: #e4ddcd;
+  --tip-bg: #eef3ec;
+  --warn-bg: #f8efe7;
+  --info-bg: #f3efe2;
+
+  --maxw: 760px;
+  --radius: 12px;
+  --font: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, 'Noto Sans JP', system-ui, sans-serif;
+  --font-serif: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.85;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; height: auto; }
+a { color: var(--terra); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3 { line-height: 1.45; font-weight: 700; color: var(--terra-deep); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--terra);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 0;
+  z-index: 100;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible { outline: 3px solid var(--terra-soft); outline-offset: 2px; }

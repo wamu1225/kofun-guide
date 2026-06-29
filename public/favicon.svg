@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="前方後円墳のシンボル">
+  <rect width="64" height="64" rx="12" fill="#9b5440"/>
+  <!-- 周濠（外周） -->
+  <g transform="translate(32 33)">
+    <path d="M0 -22 A14 14 0 1 1 0 6 L-9 22 L9 22 L0 6" fill="none" stroke="#cdbfa3" stroke-width="3.2"/>
+    <!-- 墳丘（前方後円＝鍵穴形） -->
+    <circle cx="0" cy="-9" r="12" fill="#e7d8bf"/>
+    <path d="M0 0 L-8 19 L8 19 Z" fill="#e7d8bf"/>
+    <!-- 段築の等高線 -->
+    <circle cx="0" cy="-9" r="7.5" fill="none" stroke="#9b5440" stroke-width="1.4" opacity="0.6"/>
+  </g>
+</svg>
