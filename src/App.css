@@ -351,6 +351,7 @@
 
 /* ===== レスポンシブ ===== */
 @media (max-width: 720px) {
+  .site-header-inner { flex-wrap: wrap; }
   .nav-toggle { display: inline-flex; }
   .site-nav {
     width: 100%;
