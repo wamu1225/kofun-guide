@@ -85,20 +85,23 @@ function sandaiSvg(): string {
     `<path d="M16 ${ground} Q40 ${ground - 22} 70 ${ground - 22} Q104 ${ground - 22} 120 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
     `<path d="M10 ${ground} h120" stroke="${MOAT}" stroke-width="3"/>` +
     `<text x="68" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">仁徳天皇陵古墳</text>` +
-    `<text x="68" y="${ground + 28}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約486m / 高 約36m</text>`;
+    `<text x="68" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約486m</text>` +
+    `<text x="68" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約36m</text>`;
   // ピラミッド（高い三角）
   const pyramid =
     `<path d="M150 ${ground} L182 ${ground - 92} L214 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
     `<text x="182" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">クフ王のピラミッド</text>` +
-    `<text x="182" y="${ground + 28}" font-size="8.5" fill="${INK}" text-anchor="middle">底辺 約230m / 高 約146m</text>`;
+    `<text x="182" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">底辺 約230m</text>` +
+    `<text x="182" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約146m</text>`;
   // 始皇帝陵（中くらいの台形マウンド）
   const qin =
     `<path d="M234 ${ground} L248 ${ground - 48} L280 ${ground - 48} L294 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
     `<text x="264" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">秦の始皇帝陵</text>` +
-    `<text x="264" y="${ground + 28}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約350m / 高 約76m</text>`;
+    `<text x="264" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約350m</text>` +
+    `<text x="264" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約76m</text>`;
   return (
-    `<svg class="diagram-single" viewBox="0 0 304 190" width="100%" role="img" aria-label="仁徳天皇陵古墳とクフ王のピラミッドと秦の始皇帝陵を側面の高さと長さで比べた図">` +
-    `<rect width="304" height="190" fill="${BG}"/>` +
+    `<svg class="diagram-single" viewBox="0 0 304 200" width="100%" role="img" aria-label="仁徳天皇陵古墳とクフ王のピラミッドと秦の始皇帝陵を側面の高さと長さで比べた図">` +
+    `<rect width="304" height="200" fill="${BG}"/>` +
     `<line x1="6" y1="${ground}" x2="298" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
     nintoku + pyramid + qin +
     `<text x="152" y="14" font-size="8.5" fill="${GREEN}" text-anchor="middle">高さはピラミッド、長さは仁徳陵、体積は始皇帝陵が最大（おおよその比）</text>` +
