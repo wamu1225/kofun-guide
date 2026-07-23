@@ -120,13 +120,12 @@ function appearanceSvg(): string {
   const ground = 96;
   // 今の姿：草木におおわれた緑の丸い丘
   const green = GREEN;
+  // 草のふさは丘の曲面（二次ベジェ M20,96 Q69,44 118,96）の上に載せる
+  const tufts = [[49, 74], [64, 70], [79, 71], [90, 75]]
+    .map(([x, y]) => `<path d="M${x} ${y} l-2 -5 M${x} ${y} l0 -6 M${x} ${y} l2 -5" stroke="${green}" stroke-width="1" fill="none" stroke-linecap="round"/>`).join('');
   const now =
     `<path d="M20 ${ground} Q69 44 118 ${ground} Z" fill="${green}" fill-opacity="0.32" stroke="${green}" stroke-width="1.5"/>` +
-    // 草のティック
-    [30, 45, 60, 75, 92, 104].map((cx) => {
-      const gy = ground - Math.round(52 * Math.max(0, 1 - Math.pow((cx - 69) / 49, 2)));
-      return `<path d="M${cx} ${gy} l-2 -5 M${cx} ${gy} l2 -5 M${cx} ${gy} l0 -6" stroke="${green}" stroke-width="1" fill="none" opacity="0.8"/>`;
-    }).join('') +
+    tufts +
     `<line x1="12" y1="${ground}" x2="126" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
     `<text x="69" y="92" font-size="7" fill="${INK}" text-anchor="middle">緑の丘に見える</text>`;
   // 築造時：段築・葺石・円筒埴輪の列
