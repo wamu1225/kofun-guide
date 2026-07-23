@@ -109,6 +109,52 @@ function sandaiSvg(): string {
   );
 }
 
+// 4) 築造当時の姿と今の姿（断面の対比）
+function appearanceSvg(): string {
+  const panel = (x: number, title: string, body: string) =>
+    `<g transform="translate(${x} 0)">` +
+    `<rect x="6" y="12" width="126" height="92" rx="8" fill="#ffffff" stroke="${TERRA}" stroke-width="1.3"/>` +
+    body +
+    `<text x="69" y="118" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${title}</text>` +
+    `</g>`;
+  const ground = 96;
+  // 今の姿：草木におおわれた緑の丸い丘
+  const green = GREEN;
+  const now =
+    `<path d="M20 ${ground} Q69 44 118 ${ground} Z" fill="${green}" fill-opacity="0.32" stroke="${green}" stroke-width="1.5"/>` +
+    // 草のティック
+    [30, 45, 60, 75, 92, 104].map((cx) => {
+      const gy = ground - Math.round(52 * Math.max(0, 1 - Math.pow((cx - 69) / 49, 2)));
+      return `<path d="M${cx} ${gy} l-2 -5 M${cx} ${gy} l2 -5 M${cx} ${gy} l0 -6" stroke="${green}" stroke-width="1" fill="none" opacity="0.8"/>`;
+    }).join('') +
+    `<line x1="12" y1="${ground}" x2="126" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
+    `<text x="69" y="92" font-size="7" fill="${INK}" text-anchor="middle">緑の丘に見える</text>`;
+  // 築造時：段築・葺石・円筒埴輪の列
+  const step = (d: string) => `<path d="${d}" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.3"/>`;
+  // 葺石の点（斜面に小円）
+  const stones = [[26,90],[30,86],[36,84],[46,74],[50,70],[92,74],[96,70],[104,84],[108,86],[112,90]]
+    .map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="1.5" fill="#c9b48f" stroke="${TERRA}" stroke-width="0.4"/>`).join('');
+  // 円筒埴輪の列（段の平坦面に小さな筒）
+  const haniwaRow = (y: number, xs: number[]) =>
+    xs.map((x) => `<rect x="${x}" y="${y - 7}" width="3" height="7" rx="1.2" fill="#d8c19a" stroke="${TERRA_DEEP}" stroke-width="0.5"/>`).join('');
+  const built =
+    step(`M20 ${ground} L34 78 L104 78 L118 ${ground} Z`) +
+    step('M40 78 L50 62 L88 62 L98 78 Z') +
+    step('M54 62 L61 51 L77 51 L84 62 Z') +
+    stones +
+    haniwaRow(78, [35, 42, 90, 97]) +
+    haniwaRow(62, [51, 60, 78]) +
+    `<line x1="12" y1="${ground}" x2="126" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
+    `<text x="69" y="92" font-size="7" fill="${INK}" text-anchor="middle">段築・葺石・埴輪の列</text>`;
+  return (
+    `<svg class="diagram-single" viewBox="0 0 300 128" width="100%" role="img" aria-label="今の緑の丘のような古墳と、築造当時の段築・葺石・円筒埴輪の列でおおわれた姿を比べた断面の模式図">` +
+    `<rect width="300" height="128" fill="${BG}"/>` +
+    panel(0, '今の姿', now) +
+    panel(150, '築造当時の姿', built) +
+    `</svg>`
+  );
+}
+
 const FIGURE_DATA: Record<string, { caption: string; inner: string }> = {
   'funkei': {
     caption: '古墳の主な五つの形（模式図）。上から見た輪郭で見分ける。円と方形をつないだ鍵穴形が前方後円墳で、最も格式が高いとされる。帆立貝形は前方部が短い変形にあたる。',
@@ -121,6 +167,10 @@ const FIGURE_DATA: Record<string, { caption: string; inner: string }> = {
   'sandai-hikaku': {
     caption: '世界三大墳墓の規模くらべ（模式図・おおよその相対比）。ピラミッドは高さで、始皇帝陵は体積で、仁徳天皇陵古墳は平面の長さで最大とされる。日本の巨大古墳は高くそびえるより水平に長く広がる。',
     inner: `<div class="diagram-wrap">${sandaiSvg()}</div>`,
+  },
+  'fukiishi-haniwa': {
+    caption: '築造当時の姿と今の姿の対比（模式図）。築かれた当時は斜面が葺石でおおわれ、段ごとに円筒埴輪の列がめぐっていた。長い年月のあいだに葺石が土や落ち葉に埋もれ、草木が生えて、今は緑の丘のように見える。',
+    inner: `<div class="diagram-wrap">${appearanceSvg()}</div>`,
   },
 };
 
