@@ -8,10 +8,10 @@ import { referencesHtml } from './references';
 import { sectionIconSvg } from './section-icons';
 import { tokenizeInline } from './lib/inline';
 import type { InlineToken } from './lib/inline';
+import { SITE_NAME, ABOUT_CONTENT, PRIVACY_CONTENT } from './data/static-pages';
 import './App.css';
 
 const BASE = '/kofun-guide';
-const SITE_NAME = '古墳の入門ガイド';
 
 type GroupKey = Article['group'];
 const GROUP_ORDER: { key: GroupKey; icon: string; description: string }[] = [
@@ -350,32 +350,6 @@ function ArticlePage({ article }: { article: Article }) {
     </>
   );
 }
-
-const ABOUT_CONTENT = `本サイト「${SITE_NAME}」は、古墳をはじめて学ぶ人が、墳形や石室の構造、古墳時代の流れ、仁徳天皇陵古墳や世界三大墳墓の規模までをひととおり確かめられるようにまとめたものです。
-
-## 編集と制作の方針
-
-本サイトの内容は、文化庁や堺市、宮内庁、長野県埋蔵文化財センターなどの公開情報を参照し、事実を確認したうえで、運営者が自分の言葉で書いています。出典の文章をそのまま転載することはありません。古墳の数などの数値は調査年によって変わるため、年次と出典を添えて示しています。
-
-## 陵墓と被葬者の扱い
-
-古墳のなかには、宮内庁が皇室の祖先の墓として治定し管理する陵墓があります。葬られた人物が考古学的には確定していないものも多く、本サイトでは治定と考古学の見方を中立に両論併記し、被葬者を断定しません。立ち入れない陵墓と、見学できる古墳の違いも正確に示すよう努めています。
-
-## お問い合わせ
-
-ご質問や誤りのご指摘は[こちらのGoogleフォーム](https://forms.gle/ccMv7oKwz6ysDHBe6)からお願いします。`;
-
-const PRIVACY_CONTENT = `## アクセス解析
-
-本サイトでは、サイトの利用状況を把握するために Google Analytics を使用しています。Google Analytics はクッキーを利用して匿名のトラフィックデータを収集します。収集される情報は匿名で、個人を特定するものではありません。
-
-## 広告について
-
-本サイトでは Google AdSense などの第三者配信の広告サービスを利用することがあります。広告配信事業者は、ユーザーの興味に応じた広告を表示するためにクッキーを使用することがあります。Cookie を無効にする設定や、Google の広告設定により、パーソナライズ広告を無効にできます。
-
-## 免責事項
-
-本サイトの情報は可能な限り正確を期していますが、その完全性や正確性を保証するものではありません。古墳の年代や被葬者には諸説や未確定のものがあり、数値は調査年で変わります。本サイトの情報を利用したことにより生じた損害について、運営者は一切の責任を負いません。`;
 
 function About() {
   useEffect(() => { document.title = `サイトについて | ${SITE_NAME}`; window.scrollTo(0, 0); }, []);
