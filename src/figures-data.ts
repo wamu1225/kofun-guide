@@ -13,11 +13,13 @@ const INK = '#2f2a26';
 
 // 1) 墳形5種（上から見た輪郭）
 function funkeiSvg(): string {
-  const panel = (x: number, label: string, shape: string) =>
-    `<g transform="translate(${x} 0)">` +
+  // 5枚を横一列に並べると1枚あたり60単位しか取れず、スマホでは名前が読めない大きさになる。
+  // 3枚＋2枚の2段にして1枚100単位を確保し、名前を font-size 11（390px 実効 11.7px）にする。
+  const panel = (x: number, y: number, label: string, shape: string) =>
+    `<g transform="translate(${x + 20} ${y})">` +
     `<rect x="4" y="10" width="52" height="58" rx="6" fill="#ffffff" stroke="${TERRA}" stroke-width="1.3"/>` +
     shape +
-    `<text x="30" y="82" font-size="9" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${label}</text>` +
+    `<text x="30" y="84" font-size="11" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${label}</text>` +
     `</g>`;
   const fill = `fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"`;
   // 前方後円（鍵穴）: 円＋台形
@@ -31,13 +33,13 @@ function funkeiSvg(): string {
   // 帆立貝形: 円＋極短台形
   const hotate = `<path d="M30 22 a12 12 0 1 1 -0.1 0 Z" ${fill}/><path d="M24 44 L23 54 L37 54 L36 44 Z" ${fill}/>`;
   return (
-    `<svg class="diagram-single" viewBox="0 0 300 92" width="100%" role="img" aria-label="古墳の主な五つの形（前方後円墳・前方後方墳・円墳・方墳・帆立貝形）を上から見た輪郭の図">` +
-    `<rect width="300" height="92" fill="${BG}"/>` +
-    panel(0, '前方後円墳', zenpoEn) +
-    panel(60, '前方後方墳', zenpoHo) +
-    panel(120, '円墳', en) +
-    panel(180, '方墳', ho) +
-    panel(240, '帆立貝形', hotate) +
+    `<svg class="diagram-single" viewBox="0 0 300 184" width="100%" role="img" aria-label="古墳の主な五つの形（前方後円墳・前方後方墳・円墳・方墳・帆立貝形）を上から見た輪郭の図">` +
+    `<rect width="300" height="184" fill="${BG}"/>` +
+    panel(0, 0, '前方後円墳', zenpoEn) +
+    panel(100, 0, '前方後方墳', zenpoHo) +
+    panel(200, 0, '円墳', en) +
+    panel(50, 92, '方墳', ho) +
+    panel(150, 92, '帆立貝形', hotate) +
     `</svg>`
   );
 }
@@ -48,28 +50,29 @@ function sekishitsuSvg(): string {
     `<g transform="translate(${x} 0)">` +
     `<rect x="6" y="12" width="126" height="92" rx="8" fill="#ffffff" stroke="${TERRA}" stroke-width="1.3"/>` +
     body +
-    `<text x="69" y="118" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${title}</text>` +
+    `<text x="69" y="120" font-size="11.5" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${title}</text>` +
     `</g>`;
   // 墳丘の山形
-  const mound = (cx: number) => `<path d="M${cx - 56} 96 Q${cx} 34 ${cx + 56} 96 Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.4"/>`;
+  const mound = (cx: number) => `<path d="M${cx - 56} 96 Q${cx} 44 ${cx + 56} 96 Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.4"/>`;
   // 竪穴式: 墳頂から縦穴・棺・天井石でふさぐ
   const tate = mound(69) +
     `<rect x="60" y="58" width="18" height="22" fill="#cdb290" stroke="${TERRA_DEEP}" stroke-width="1.2"/>` +
     `<rect x="63" y="62" width="12" height="14" fill="#8a6f4e"/>` + // 棺
     `<rect x="58" y="53" width="22" height="5" fill="#9a9388"/>` + // 天井石
     `<line x1="69" y1="40" x2="69" y2="53" stroke="${TERRA_DEEP}" stroke-width="1" stroke-dasharray="3 2"/>` +
-    `<text x="69" y="92" font-size="7.5" fill="${INK}" text-anchor="middle">上から縦穴・密閉</text>`;
+    `<text x="69" y="28" font-size="10.5" fill="${INK}" text-anchor="middle">上から縦穴・密閉</text>`;
   // 横穴式: 側面入口・羨道・玄室
   const yoko = mound(69) +
     `<rect x="40" y="74" width="40" height="16" fill="#8a6f4e" stroke="${TERRA_DEEP}" stroke-width="1.2"/>` + // 玄室
     `<rect x="80" y="80" width="34" height="9" fill="#a98c66" stroke="${TERRA_DEEP}" stroke-width="1"/>` + // 羨道
-    `<text x="60" y="84" font-size="7" fill="#fff" text-anchor="middle">玄室</text>` +
-    `<text x="97" y="87" font-size="6.5" fill="${INK}" text-anchor="middle">羨道</text>` +
+    `<text x="60" y="86" font-size="10.5" fill="#fff" text-anchor="middle">玄室</text>` +
+    `<path d="M112 78 L120 58" stroke="${TERRA_DEEP}" stroke-width="0.8" fill="none"/>` +
+    `<text x="120" y="52" font-size="10.5" fill="${INK}" text-anchor="middle">羨道</text>` +
     `<path d="M120 84 l-6 -3 M120 84 l-6 3" stroke="${TERRA_DEEP}" stroke-width="1.2" fill="none"/>` +
-    `<text x="69" y="100" font-size="7.5" fill="${INK}" text-anchor="middle">横から出入り・追葬可</text>`;
+    `<text x="69" y="28" font-size="10.5" fill="${INK}" text-anchor="middle">横から出入り・追葬可</text>`;
   return (
-    `<svg class="diagram-single" viewBox="0 0 300 128" width="100%" role="img" aria-label="竪穴式石室と横穴式石室の断面の比較図">` +
-    `<rect width="300" height="128" fill="${BG}"/>` +
+    `<svg class="diagram-single" viewBox="0 0 300 136" width="100%" role="img" aria-label="竪穴式石室と横穴式石室の断面の比較図">` +
+    `<rect width="300" height="136" fill="${BG}"/>` +
     panel(0, '竪穴式石室', tate) +
     panel(150, '横穴式石室', yoko) +
     `</svg>`
@@ -84,27 +87,28 @@ function sandaiSvg(): string {
   const nintoku =
     `<path d="M16 ${ground} Q40 ${ground - 22} 70 ${ground - 22} Q104 ${ground - 22} 120 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
     `<path d="M10 ${ground} h120" stroke="${MOAT}" stroke-width="3"/>` +
-    `<text x="68" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">仁徳天皇陵古墳</text>` +
-    `<text x="68" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約486m</text>` +
-    `<text x="68" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約36m</text>`;
+    `<text x="68" y="${ground + 18}" font-size="11.5" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">仁徳天皇陵</text>` +
+    `<text x="68" y="${ground + 31}" font-size="10.5" fill="${INK}" text-anchor="middle">全長 約486m</text>` +
+    `<text x="68" y="${ground + 44}" font-size="10.5" fill="${INK}" text-anchor="middle">高 約36m</text>`;
   // ピラミッド（高い三角）
   const pyramid =
     `<path d="M150 ${ground} L182 ${ground - 92} L214 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
-    `<text x="182" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">クフ王のピラミッド</text>` +
-    `<text x="182" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">底辺 約230m</text>` +
-    `<text x="182" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約146m</text>`;
+    `<text x="182" y="${ground + 18}" font-size="11.5" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">ピラミッド</text>` +
+    `<text x="182" y="${ground + 31}" font-size="10.5" fill="${INK}" text-anchor="middle">底辺 約230m</text>` +
+    `<text x="182" y="${ground + 44}" font-size="10.5" fill="${INK}" text-anchor="middle">高 約146m</text>`;
   // 始皇帝陵（中くらいの台形マウンド）
   const qin =
     `<path d="M234 ${ground} L248 ${ground - 48} L280 ${ground - 48} L294 ${ground} Z" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.6"/>` +
-    `<text x="264" y="${ground + 16}" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">秦の始皇帝陵</text>` +
-    `<text x="264" y="${ground + 27}" font-size="8.5" fill="${INK}" text-anchor="middle">全長 約350m</text>` +
-    `<text x="264" y="${ground + 39}" font-size="8.5" fill="${INK}" text-anchor="middle">高 約76m</text>`;
+    `<text x="264" y="${ground + 18}" font-size="11.5" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">始皇帝陵</text>` +
+    `<text x="264" y="${ground + 31}" font-size="10.5" fill="${INK}" text-anchor="middle">全長 約350m</text>` +
+    `<text x="264" y="${ground + 44}" font-size="10.5" fill="${INK}" text-anchor="middle">高 約76m</text>`;
   return (
-    `<svg class="diagram-single" viewBox="0 0 304 200" width="100%" role="img" aria-label="仁徳天皇陵古墳とクフ王のピラミッドと秦の始皇帝陵を側面の高さと長さで比べた図">` +
-    `<rect width="304" height="200" fill="${BG}"/>` +
+    `<svg class="diagram-single" viewBox="0 0 304 208" width="100%" role="img" aria-label="仁徳天皇陵古墳とクフ王のピラミッドと秦の始皇帝陵を側面の高さと長さで比べた図">` +
+    `<rect width="304" height="208" fill="${BG}"/>` +
     `<line x1="6" y1="${ground}" x2="298" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
     nintoku + pyramid + qin +
-    `<text x="152" y="14" font-size="8.5" fill="${GREEN}" text-anchor="middle">高さはピラミッド、長さは仁徳陵、体積は始皇帝陵が最大（おおよその比）</text>` +
+    `<text x="152" y="14" font-size="10.5" fill="${GREEN}" text-anchor="middle">高さはピラミッド、長さは仁徳陵、</text>` +
+    `<text x="152" y="27" font-size="10.5" fill="${GREEN}" text-anchor="middle">体積は始皇帝陵が最大（おおよその比）</text>` +
     `</svg>`
   );
 }
@@ -115,7 +119,7 @@ function appearanceSvg(): string {
     `<g transform="translate(${x} 0)">` +
     `<rect x="6" y="12" width="126" height="92" rx="8" fill="#ffffff" stroke="${TERRA}" stroke-width="1.3"/>` +
     body +
-    `<text x="69" y="118" font-size="10" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${title}</text>` +
+    `<text x="69" y="120" font-size="11.5" font-weight="700" fill="${TERRA_DEEP}" text-anchor="middle">${title}</text>` +
     `</g>`;
   const ground = 96;
   // 今の姿：草木におおわれた緑の丸い丘
@@ -127,7 +131,7 @@ function appearanceSvg(): string {
     `<path d="M20 ${ground} Q69 44 118 ${ground} Z" fill="${green}" fill-opacity="0.32" stroke="${green}" stroke-width="1.5"/>` +
     tufts +
     `<line x1="12" y1="${ground}" x2="126" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
-    `<text x="69" y="92" font-size="7" fill="${INK}" text-anchor="middle">緑の丘に見える</text>`;
+    `<text x="69" y="28" font-size="10.5" fill="${INK}" text-anchor="middle">緑の丘に見える</text>`;
   // 築造時：段築・葺石・円筒埴輪の列
   const step = (d: string) => `<path d="${d}" fill="${EARTH}" stroke="${TERRA}" stroke-width="1.3"/>`;
   // 葺石の点（斜面に小円）
@@ -144,10 +148,10 @@ function appearanceSvg(): string {
     haniwaRow(78, [35, 42, 90, 97]) +
     haniwaRow(62, [51, 60, 78]) +
     `<line x1="12" y1="${ground}" x2="126" y2="${ground}" stroke="${TERRA}" stroke-width="1"/>` +
-    `<text x="69" y="92" font-size="7" fill="${INK}" text-anchor="middle">段築・葺石・埴輪の列</text>`;
+    `<text x="69" y="28" font-size="10.5" fill="${INK}" text-anchor="middle">段築・葺石・埴輪の列</text>`;
   return (
-    `<svg class="diagram-single" viewBox="0 0 300 128" width="100%" role="img" aria-label="今の緑の丘のような古墳と、築造当時の段築・葺石・円筒埴輪の列でおおわれた姿を比べた断面の模式図">` +
-    `<rect width="300" height="128" fill="${BG}"/>` +
+    `<svg class="diagram-single" viewBox="0 0 300 136" width="100%" role="img" aria-label="今の緑の丘のような古墳と、築造当時の段築・葺石・円筒埴輪の列でおおわれた姿を比べた断面の模式図">` +
+    `<rect width="300" height="136" fill="${BG}"/>` +
     panel(0, '今の姿', now) +
     panel(150, '築造当時の姿', built) +
     `</svg>`
